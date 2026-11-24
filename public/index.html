@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f1ea">
+  <meta name="description" content="Quiz-Ecke – das Live-Quiz zum Mitmachen mit dem Handy. Gesponsert vom ITB Projekt.">
+  <title>Quiz-Ecke</title>
+  <link rel="icon" type="image/png" href="logo-round.png?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <nav class="nav">
+      <a class="brand" href="./" id="brand-link">
+        <img class="brand-logo" src="logo-round.png" alt="">
+        <span class="brand-name">quiz-ecke</span>
+        <span class="badge" id="event-badge"></span>
+      </a>
+      <div class="nav-actions">
+        <a class="sponsor-chip sponsor-link" target="_blank" rel="noopener">
+          <span class="live-dot"></span>
+          <span>Gesponsert von <strong class="sponsor-name">ITB Projekt</strong></span>
+        </a>
+        <button type="button" class="icon-btn" id="sound-toggle" title="Ton an/aus" aria-label="Ton an/aus">🔊</button>
+        <button type="button" id="admin-toggle" class="btn dark small">⚙️ Admin</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap" id="main">
+
+    <!-- ============ Startseite ============ -->
+    <div id="view-join" class="view">
+      <section class="bento">
+        <div class="cell cell-hero">
+          <div class="eyebrow"><span class="live-dot"></span> Live-Quiz · mit dem Handy</div>
+          <h1 class="display">Bist du<br><span class="mark">bereit?</span></h1>
+          <p class="lead">Code eingeben, Avatar wählen, schneller antworten als alle anderen.</p>
+          <form id="code-form" class="code-form">
+            <label for="code-input" class="sr-only">Quiz-Code</label>
+            <input id="code-input" class="code-input" type="text" maxlength="10" placeholder="CODE" autocomplete="off"
+                   autocapitalize="characters" spellcheck="false" required>
+            <button type="submit" class="btn dark big arrow-btn">Los <span aria-hidden="true">→</span></button>
+          </form>
+          <div id="code-message" class="message error" aria-live="polite"></div>
+        </div>
+
+        <div class="cell cell-lime">
+          <div class="cell-kicker">Tempo zählt</div>
+          <div class="cell-number">1000</div>
+          <p>Punkte pro Frage – je schneller du richtig liegst, desto mehr.</p>
+        </div>
+
+        <div class="cell cell-cobalt">
+          <div class="cell-kicker">Serien-Bonus</div>
+          <div class="cell-number">+500</div>
+          <p>Mehrere richtig hintereinander? Gibt Extra-Punkte. 🔥</p>
+        </div>
+
+        <div class="cell cell-steps">
+          <div class="cell-kicker dark">So geht's</div>
+          <ol class="steps">
+            <li><span>1</span>Code vom Beamer eingeben oder QR-Code scannen</li>
+            <li><span>2</span>Name und Avatar aussuchen</li>
+            <li><span>3</span>Antworten, punkten, aufs Podest</li>
+          </ol>
+        </div>
+
+        <a class="cell cell-sponsor sponsor-link" target="_blank" rel="noopener">
+          <div class="cell-kicker">Offizieller Sponsor</div>
+          <div class="sponsor-row">
+            <img src="logo-round.png" alt="" class="sponsor-logo">
+            <div class="sponsor-title sponsor-name">ITB Projekt</div>
+          </div>
+          <p>Die Quiz-Ecke wird vom <span class="sponsor-name">ITB Projekt</span> unterstützt und gesponsert.</p>
+          <span class="cell-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <div class="cell cell-orange">
+          <div class="cell-kicker">Bis zu</div>
+          <div class="cell-number">40</div>
+          <p>Leute gleichzeitig in einer Runde.</p>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>quiz-ecke</span><i>✦</i><span>gesponsert von <b class="sponsor-name">ITB Projekt</b></span><i>✦</i><span>schnell sein lohnt sich</span><i>✦</i><span>live mit dem handy</span><i>✦</i>
+          <span>quiz-ecke</span><i>✦</i><span>gesponsert von <b class="sponsor-name">ITB Projekt</b></span><i>✦</i><span>schnell sein lohnt sich</span><i>✦</i><span>live mit dem handy</span><i>✦</i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Lobby ============ -->
+    <div id="view-lobby" class="view hidden">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" id="lobby-kicker">Lobby</div>
+          <h1 id="lobby-title" class="page-title">Quiz</h1>
+          <div class="code-line">Code <span id="lobby-code" class="code-chip"></span></div>
+        </div>
+        <button type="button" id="leave-quiz" class="btn light small">↩ Anderer Code</button>
+      </div>
+
+      <div class="lobby-grid">
+        <section class="card" id="join-card">
+          <h2>Wer bist du?</h2>
+          <form id="join-form" class="stack">
+            <div class="name-row">
+              <button type="button" class="avatar-preview" id="avatar-preview" title="Zufälliger Avatar">🦊</button>
+              <input id="player-name" type="text" maxlength="18" placeholder="Dein Spitzname" autocomplete="nickname" required>
+            </div>
+            <div class="label">Avatar</div>
+            <div class="avatar-grid" id="avatar-grid"></div>
+            <button type="submit" class="btn dark big" id="join-button">Ab in die Lobby →</button>
+          </form>
+          <div id="join-message" class="message" aria-live="polite"></div>
+        </section>
+
+        <section class="card me-card hidden" id="me-card">
+          <div class="me-avatar" id="me-avatar">🦊</div>
+          <h2 class="me-name" id="me-name">Name</h2>
+          <p class="me-status" id="me-status">Du bist dabei!</p>
+          <div class="loader-bar" aria-hidden="true"><span></span></div>
+          <p class="muted small" id="me-hint">Warte, bis der Host die Runde startet.</p>
+          <button type="button" class="btn light small" id="leave-lobby">Name ändern</button>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h2>In der Lobby</h2>
+            <span id="queue-count" class="count-chip">0</span>
+          </div>
+          <div id="status-box" class="status" aria-live="polite">Verbinde mit dem Quiz …</div>
+          <div id="queue" class="player-cloud"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ Spiel (Mitspieler) ============ -->
+    <div id="view-game" class="view hidden">
+      <div id="game-stage"></div>
+    </div>
+
+    <!-- ============ Ende ============ -->
+    <div id="view-finished" class="view hidden">
+      <section class="finished-wrap" aria-live="polite">
+        <div class="eyebrow center">🏁 Quiz beendet</div>
+        <h1 class="page-title center">Siegerpodest</h1>
+        <div id="podium" class="podium"></div>
+        <div id="my-final" class="my-final hidden"></div>
+        <section class="card">
+          <h2>Alle Ergebnisse</h2>
+          <div id="final-scores" class="leaderboard"></div>
+        </section>
+        <div class="end-actions">
+          <button type="button" id="end-game" class="btn light">Runde beenden</button>
+          <div id="end-access" class="end-access hidden">
+            <p class="muted small">Admin-Zugang eingeben, um die Runde zu beenden.</p>
+            <div class="stack">
+              <input id="end-email" type="text" placeholder="Admin-E-Mail" autocomplete="username">
+              <input id="end-password" type="password" placeholder="Passwort" autocomplete="current-password">
+              <button type="button" id="confirm-end" class="btn dark">Runde beenden</button>
+            </div>
+            <div id="end-message" class="message" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ Präsentationsmodus (Beamer) ============ -->
+    <div id="view-host" class="view hidden">
+      <div class="host-bar">
+        <div class="host-bar-left">
+          <button type="button" class="btn light small" id="host-exit">← Zurück</button>
+          <strong id="host-quiz-name" class="host-quiz-name">Quiz</strong>
+        </div>
+        <div class="host-bar-right">
+          <span class="count-chip" id="host-mode-pill"></span>
+          <button type="button" class="btn light small" id="host-fullscreen">⛶ Vollbild</button>
+        </div>
+      </div>
+      <div id="host-stage"></div>
+      <div class="host-footer">
+        <a class="sponsor-chip sponsor-link" target="_blank" rel="noopener"><span class="live-dot"></span><span>Gesponsert von <strong class="sponsor-name">ITB Projekt</strong></span></a>
+        <div id="host-message" class="message" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- ============ Admin ============ -->
+    <div id="view-admin" class="view hidden">
+      <section id="admin-login" class="card login-card">
+        <div class="login-icon">🔐</div>
+        <h2>Admin-Anmeldung</h2>
+        <p class="muted">Quizze erstellen, Fragen bearbeiten und Runden starten.</p>
+        <form id="admin-login-form" class="stack" style="margin-top:18px">
+          <input id="admin-email" type="text" placeholder="Admin-E-Mail" autocomplete="username" required>
+          <input id="admin-password" type="password" placeholder="Passwort" autocomplete="current-password" required>
+          <button type="submit" class="btn dark big">Anmelden →</button>
+        </form>
+        <div id="admin-login-message" class="message" aria-live="polite"></div>
+      </section>
+
+      <div id="admin-panel" class="hidden">
+        <div class="page-head">
+          <h1 id="admin-title" class="page-title">Admin</h1>
+          <button type="button" id="admin-logout" class="btn light small">Abmelden</button>
+        </div>
+
+        <!-- Liste aller Quizze -->
+        <div id="admin-list-view">
+          <div class="stat-row" id="admin-stats"></div>
+          <section class="card">
+            <div class="section-head">
+              <h2>Deine Quizze</h2>
+              <div class="actions tight">
+                <label class="btn light small">⬆ Importieren<input type="file" id="import-quiz" accept="application/json,.json" hidden></label>
+                <button type="button" id="create-quiz" class="btn dark small">＋ Neues Quiz</button>
+              </div>
+            </div>
+            <p class="muted">Jedes Quiz hat einen eigenen Code. Wer ihn auf der Startseite eingibt, landet in diesem Quiz.</p>
+            <div id="quiz-list"></div>
+          </section>
+          <div id="list-message" class="message" aria-live="polite"></div>
+        </div>
+
+        <!-- Ein Quiz bearbeiten -->
+        <div id="admin-quiz-view" class="hidden">
+          <button type="button" id="back-to-list" class="btn light small">← Alle Quizze</button>
+
+          <div class="editor-grid">
+            <section class="card">
+              <div class="label first">Name des Quiz</div>
+              <input id="quiz-name" type="text" maxlength="60" placeholder="z. B. Fremdwörter-Quiz">
+              <div class="label">Code zum Mitmachen</div>
+              <div class="code-row">
+                <span id="quiz-code" class="code-chip big"></span>
+                <button type="button" id="copy-code" class="btn light small">Kopieren</button>
+                <button type="button" id="copy-link" class="btn light small">Link kopieren</button>
+                <button type="button" id="new-code" class="btn light small">Neuer Code</button>
+              </div>
+              <div class="label">Einstellungen</div>
+              <label class="switch-row">
+                <input type="checkbox" id="setting-auto" checked>
+                <span class="switch"></span>
+                <span><strong>Automatisch weiter</strong><br><span class="muted small">Auflösung und Zwischenstand laufen von selbst weiter. Aus = der Host klickt auf „Weiter“.</span></span>
+              </label>
+              <label class="switch-row">
+                <input type="checkbox" id="setting-shuffle">
+                <span class="switch"></span>
+                <span><strong>Fragen mischen</strong><br><span class="muted small">Jede Runde kommen die Fragen in zufälliger Reihenfolge.</span></span>
+              </label>
+            </section>
+
+            <section class="card card-dark round-card">
+              <h2>Runde</h2>
+              <div id="admin-status" class="status">Lade …</div>
+              <div class="actions">
+                <button type="button" id="open-host" class="btn lime big">🖥️ Präsentieren</button>
+                <button type="button" id="start-game" class="btn white">▶ Runde starten</button>
+                <button type="button" id="reset-game" class="btn ghost-dark">⏹ Beenden</button>
+              </div>
+              <p class="small dim">Tipp: „Präsentieren“ auf dem Beamer öffnen – dort sieht jeder Code, QR-Code, Fragen und Rangliste.</p>
+              <div id="admin-message" class="message" aria-live="polite"></div>
+            </section>
+          </div>
+
+          <section class="card">
+            <div class="section-head">
+              <h2>Fragen</h2>
+              <div class="actions tight">
+                <span id="question-total" class="count-chip"></span>
+                <button type="button" id="export-quiz" class="btn light small">⬇ Exportieren</button>
+              </div>
+            </div>
+            <p class="muted">Fragen ändern, verschieben, kopieren und löschen, Bild, Zeit und Punkte einstellen und mehrere Antworten als richtig markieren. Vergiss das Speichern nicht.</p>
+            <div id="editor-notice" class="notice hidden">Die Runde läuft gerade. Gespeichert werden kann erst, wenn sie beendet ist.</div>
+            <fieldset id="editor-fieldset">
+              <div id="editor"></div>
+              <div class="actions">
+                <button type="button" id="add-question" class="btn dark">＋ Neue Frage</button>
+                <button type="button" id="add-truefalse" class="btn light">＋ Wahr / Falsch</button>
+              </div>
+            </fieldset>
+          </section>
+
+          <div id="savebar" class="savebar">
+            <span id="save-state" class="savebar-text">Alles gespeichert</span>
+            <button type="button" id="save-questions" class="btn lime">💾 Speichern</button>
+          </div>
+          <div id="save-message" class="message" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-word">quiz-ecke</div>
+          <p class="footer-text">Das Live-Quiz zum Mitmachen.</p>
+        </div>
+        <a class="footer-sponsor sponsor-link" target="_blank" rel="noopener">
+          <span class="footer-sponsor-kicker">Gesponsert von</span>
+          <span class="footer-sponsor-name sponsor-name">ITB Projekt</span>
+          <span class="footer-sponsor-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js?v=5"></script>
+</body>
+</html>
