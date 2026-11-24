@@ -29,7 +29,7 @@ const MAX_STREAK_BONUS = 500;
 const POINT_MODES = ["standard", "double", "none"];
 
 // Sponsor und Anlass – lassen sich beim Hosting über Umgebungsvariablen ändern.
-const SPONSOR_NAME = process.env.SPONSOR_NAME || "ITB Projekt";
+const SPONSOR_NAME = process.env.SPONSOR_NAME || "Sparky Projekts";
 const SPONSOR_URL = /^https?:\/\//i.test(process.env.SPONSOR_URL || "") ? process.env.SPONSOR_URL : "";
 const EVENT_BADGE = process.env.EVENT_BADGE ?? "70. Geburtstag";
 
