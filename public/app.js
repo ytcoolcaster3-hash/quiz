@@ -321,7 +321,7 @@ function growBars(root) {
 /* ---------- Konfiguration (Sponsor usw.) ---------- */
 
 let config = {
-  sponsorName: "ITB Projekt",
+  sponsorName: "Sparky Projekts",
   sponsorUrl: "",
   eventBadge: "",
   avatars: ["🦊", "🐼", "🐸", "🦁", "🐯", "🐨", "🐵", "🦄", "🐙", "🐳", "🦖", "🐝", "🦉", "🐧", "🐰", "🐱", "🐶", "🐻", "🐲", "👾", "🤖", "👻", "🚀", "🌈"],
